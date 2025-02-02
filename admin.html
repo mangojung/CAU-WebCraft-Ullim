@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 승인 페이지</title>
+    <style>
+        table { width: 60%; border-collapse: collapse; margin: 20px auto; }
+        th, td { padding: 10px; text-align: center; border: 1px solid #ccc; }
+        button { padding: 5px 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">회원 가입 승인 요청</h2>
+    <table id="approvalTable">
+        <tr>
+            <th>아이디</th>
+            <th>이메일</th>
+            <th>작업</th>
+        </tr>
+    </table>
+
+    <script>
+        // 승인 대기 목록 불러오기
+        fetch('admin.php')
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('approvalTable');
+                data.forEach(user => {
+                    const row = table.insertRow();
+                    row.innerHTML = `
+                        <td>${user.username}</td>
+                        <td>${user.email}</td>
+                        <td><button onclick="approveUser(${user.id})">승인</button></td>
+                    `;
+                });
+            });
+
+        // 회원 승인 함수
+        function approveUser(userId) {
+            const formData = new FormData();
+            formData.append('user_id', userId);
+
+            fetch('admin.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert(result.message);
+                location.reload(); // 페이지 새로고침으로 목록 갱신
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
