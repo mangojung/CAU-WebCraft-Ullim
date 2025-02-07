@@ -21,17 +21,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("아이디와 비밀번호를 모두 입력해주세요.");
     }
 
-    $sql = "SELECT password FROM members WHERE username = ?";
+    $sql = "SELECT password, is_approved FROM members WHERE username = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $user_username);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($hashed_password);
+        $stmt->bind_result($hashed_password, $is_approved);
         $stmt->fetch();
 
-        if (password_verify($user_password, $hashed_password)) {
+        if ($is_approved == 0) {
+            echo "관리자의 승인이 필요합니다.";
+        } elseif (password_verify($user_password, $hashed_password)) {
             echo "로그인 성공!";
             // 필요 시 세션 처리 추가
         } else {
