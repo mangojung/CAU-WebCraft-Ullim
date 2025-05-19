@@ -1,0 +1,61 @@
+<header id="headerType" class="header__wrap nexon">
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+        <script defer src="/js/navbar.js"></script>  <!-- ✅ 추가된 스크립트 -->
+    </head>
+    
+    
+    <div class="header__inner">
+        <div class="header__logo">
+            <a href="/"> <!-- 메인 페이지 이동 -->
+                <p>중앙대학교 다빈치캠퍼스</p>
+                <p>제 67대 울림 총학생회</p>
+            </a>
+        </div>
+    <nav class="header__menu">
+        <ul>
+            <li class="dropdown">
+                <a href="/about/student_council">소개 ▾</a>
+                <ul class="dropdown__menu">
+                    <li><a href="/about/student_council">총학생회</a></li>
+                    <li><a href="/about/committee">중앙운영위원회</a></li>
+                    <li><a href="/about/club">동아리연합회</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a href="/notice">공지사항 ▾</a>
+                <ul class="dropdown__menu">
+                    <li><a href="/notice">공지사항</a></li>
+                    <li><a href="/notice/finance">회계감사내역</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a href="/life/affiliation">학교생활 ▾</a>
+                <ul class="dropdown__menu">
+                    <li><a href="/life/affiliation">제휴 안내</a></li>
+                    <li><a href="/life/map">캠퍼스맵</a></li>
+                    <li><a href="/life/lostfound">분실물 게시판</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    
+        <!-- 로그인 영역 -->
+        <div class="header__member">
+            <% if (!user) { %>
+                <!-- 비로그인 상태 -->
+                <a href="/login" class="btn-login">로그인</a>
+            <% } else { %>
+                <!-- 로그인 상태 -->
+                <div class="user-info">
+                    <img src="/images/human_symbol.png" alt="유저 아이콘" class="user-icon">
+                    <span class="user-name">관리자 님</span>
+                </div>
+            
+                <!-- 로그아웃 버튼 가로 정렬 -->
+                <div class="user-actions">
+                    <a href="/logout" class="btn-logout">로그아웃</a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</header>

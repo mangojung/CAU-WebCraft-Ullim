@@ -1,0 +1,32 @@
+<%- include('../partials/header') %>
+
+<section class="notice-detail container">
+  <h2 class="notice-title"><%= notice.title %></h2>
+  <div class="notice-meta">
+    <p><strong>작성일:</strong> <%= new Date(notice.created_at).toISOString().split('T')[0] %></p>
+    <p><strong>조회수:</strong> <%= notice.views %></p>
+  </div>
+
+  <hr>
+
+  <div class="notice-content">
+    <p><%= notice.content %></p>
+  </div>
+
+  <hr>
+  <div class="notice-actions">
+    <a href="/notice" class="btn-common">목록으로</a>
+    
+    <% if (user && user.username === 'ullimdavinci67') { %>
+      <a href="/notice/<%= notice.id %>/edit" class="btn-common">수정</a>
+      <form action="/notice/<%= notice.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirm('삭제하시겠습니까?');">
+        <button type="submit" class="btn-delete">삭제</button>
+      </form>
+    <% } %>
+
+
+    
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

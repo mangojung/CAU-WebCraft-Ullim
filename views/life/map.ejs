@@ -1,0 +1,109 @@
+<%- include('../partials/header') %>
+
+<section class="notice__wrap nexon section">
+    <div class="container" style="display: flex; justify-content: space-between; gap: 40px; align-items: flex-start;">
+
+        <!-- 본문 -->
+        <div class="main-content" style="flex: 1;">
+        <h2>🗺️ 캠퍼스 맵</h2>
+        <p class="notice__desc">다빈치캠퍼스 주요 시설을 안내합니다.</p>
+        <div style="text-align: center;">
+            <img src="/images/davinci_schoolmap.png" class="campus-map" alt="다빈치 캠퍼스맵">
+        </div>
+
+        <!-- 건물 드롭다운 -->
+        <div id="mapDropdown" class="map-dropdown">
+        <div class="selected" onclick="toggleDropdown()">
+            <span id="selectedLabel">606관(제2음악관)</span>
+            <span class="arrow">▼</span>
+        </div>
+        <div id="dropdownList" class="dropdown-list hidden">
+            <button onclick="selectBuilding('b601', '601관(교직원회관 1관)')">601관(교직원회관 1관)</button>
+            <button onclick="selectBuilding('b602', '602관(교직원회관 2관)')">602관(교직원회관 2관)</button>
+            <button onclick="selectBuilding('b603', '603관(교직원회관 3관)')">603관(교직원회관 3관)</button>
+            <button onclick="selectBuilding('b605', '605관(제1음악관)')">605관(제1음악관)</button>
+            <button onclick="selectBuilding('b606', '606관(제2음악관)')">606관(제2음악관)</button>
+            <button onclick="selectBuilding('b608', '608관(한국음악관)')">608관(한국음악관)</button>
+            <button onclick="selectBuilding('b609', '609관(산학협력관)')">609관(산학협력관)</button>
+            <button onclick="selectBuilding('b610', '610관(학생복지관)')">610관(학생복지관)</button>
+            <button onclick="selectBuilding('b611', '611관(학생회관)')">611관(학생회관)</button>
+            <button onclick="selectBuilding('b701', '701관(예지1동)')">701관(예지1동)</button>
+            <button onclick="selectBuilding('b702', '702관(예지2동)')">702관(예지2동)</button>
+            <button onclick="selectBuilding('b703', '703관(예지3동)')">703관(예지3동)</button>
+            <button onclick="selectBuilding('b704', '704관(명덕 1동)')">704관(명덕 1동)</button>
+            <button onclick="selectBuilding('b705', '705관(명덕2동)')">705관(명덕2동)</button>
+            <button onclick="selectBuilding('b706', '706관(명덕3동)')">706관(명덕3동)</button>
+            <button onclick="selectBuilding('b707', '707관(학생후생관)')">707관(학생후생관)</button>
+            <button onclick="selectBuilding('b708', '708관(생활복지관)')">708관(생활복지관)</button>
+            <button onclick="selectBuilding('b801', '801관(중앙문화관)')">801관(중앙문화관)</button>
+            <button onclick="selectBuilding('b802', '802관(교수연구관)')">802관(교수연구관)</button>
+            <button onclick="selectBuilding('b803', '803관(조소관 2관)')">803관(조소관 2관)</button>
+            <button onclick="selectBuilding('b804', '804관(조소관 1관)')">804관(조소관 1관)</button>
+            <button onclick="selectBuilding('b805', '805관(공연영상관 1관)')">805관(공연영상관 1관)</button>
+            <button onclick="selectBuilding('b806', '806관(공연영상관 2관)')">806관(공연영상관 2관)</button>
+            <button onclick="selectBuilding('b807', '807관(공예관)')">807관(공예관)</button>
+            <button onclick="selectBuilding('b808', '808관(조형관)')">808관(조형관)</button>
+            <button onclick="selectBuilding('b809', '809관(생명공학관 1관)')">809관(생명공학관 1관)</button>
+            <button onclick="selectBuilding('b810', '810관(원형관)')">810관(원형관)</button>
+            <button onclick="selectBuilding('b811a', '811관(창업보육관 1관)')">811관(창업보육관 1관)</button>
+            <button onclick="selectBuilding('b811b', '811관(창업보육센터)')">811관(창업보육센터)</button>
+            <button onclick="selectBuilding('b812', '812관(선수생활관)')">812관(선수생활관)</button>
+            <button onclick="selectBuilding('b813', '813관(대학교회)')">813관(대학교회)</button>
+            <button onclick="selectBuilding('b814', '814관(LMO 격리온실)')">814관(LMO 격리온실)</button>
+            <button onclick="selectBuilding('b901', '901관(본관)')">901관(본관)</button>
+            <button onclick="selectBuilding('b902', '902관(중앙도서관)')">902관(중앙도서관)</button>
+            <button onclick="selectBuilding('b903', '903관(승차장)')">903관(승차장)</button>
+            <button onclick="selectBuilding('b904', '904관(생명공학관2관)')">904관(생명공학관2관)</button>
+            <button onclick="selectBuilding('b905', '905관(생명공학관3관)')">905관(생명공학관3관)</button>
+            <button onclick="selectBuilding('b906', '906관(창업보육관 2관)')">906관(창업보육관 2관)</button>
+            <button onclick="selectBuilding('b907', '907관(수림체육관)')">907관(수림체육관)</button>
+            <button onclick="selectBuilding('b908', '908관(체육관)')">908관(체육관)</button>
+            <button onclick="selectBuilding('b909', '909관(실험농장)')">909관(실험농장)</button>
+
+            
+            <!-- 더 추가 가능 -->
+        </div>
+        </div>
+
+
+    </div>
+
+        <!-- 사이드바 -->
+        <div class="sidebar">
+        <%- include('../partials/navigation_dynamic', {
+            sectionTitle: '학교생활',
+            currentPath: '/life/map',
+            navItems: [
+            { label: '제휴 안내', path: '/life/affiliation' },
+            { label: '캠퍼스맵', path: '/life/map' },
+            { label: '분실물 게시판', path: '/life/lostfound' }
+            ]
+        }) %>
+        </div>
+
+    </div>
+</section>
+
+
+<script>
+function toggleDropdown() {
+    document.getElementById('dropdownList').classList.toggle('hidden');
+    }
+
+    function selectBuilding(id, label) {
+    // 드롭다운 닫기
+    document.getElementById('dropdownList').classList.add('hidden');
+
+    // 선택된 건물명 표시
+    document.getElementById('selectedLabel').innerText = label;
+
+    // 설명 변경
+    document.querySelectorAll('.map-description').forEach(desc => {
+        desc.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+    }
+</script>
+
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,40 @@
+<%- include('../partials/header') %>
+
+<section class="section">
+  <div class="layout-two-column">
+
+    <div class="main-content">
+      <section class="about-section">
+        <h2>동아리연합회</h2>
+        <p class="about-paragraph">
+          중앙대학교 다빈치캠퍼스 동아리연합회는 다양한 문화와 활동의 중앙동아리들이 모인 학생자치기구입니다.
+          중앙동아리에 소속된 학생들을 대표하며, 각 동아리의 고유한 특성과 다양성을 존중하고 활동 활성화를 돕는 데 앞장섭니다.
+          현재 25개의 정동아리와 4개의 가동아리가 활동 중이며,
+          공연분과, 창업분과, 이념봉사분과, 종교분과, 문화학술분과, 구기분과, 무예분과, 레저분과 등 8개의 분과로 구성되어 있습니다.
+          동아리연합회는 각 동아리가 가진 고유한 색과 활동을 적극 지지하며, 학생들이 동아리 활동을 통해 더 풍부하고 가치 있는 경험을 쌓을 수 있도록 지원합니다.
+          새로운 도전에 대한 열정을 복돋우며, 동아리 활동을 통해 현재의 삶을 더욱 풍부하고 의미 있는 경험으로 만들어 가겠습니다.
+          다양한 분야의 사람들이 모여 협력하고 함께 도전하는 모습이 실현될 수 있도록, 동아리연합회가 든든한 지원자가 되겠습니다.
+          또한, 앞으로의 학우 여러분의 꿈을 응원하며, 언제나 곁에서 함께하는 동행자가 되겠습니다.
+        </p>
+        <div class="org-image">
+          <img src="/images/club_logic.png" alt="동아리연합회 조직도" />
+        </div>
+      </section>
+    </div>
+
+    <aside class="sidebar">
+      <%- include('../partials/navigation_dynamic', {
+        sectionTitle: '소개',
+        currentPath: '/about/club',
+        navItems: [
+          { label: '총학생회', path: '/about/student_council' },
+          { label: '중앙운영위원회', path: '/about/committee' },
+          { label: '동아리연합회', path: '/about/club' }
+        ]
+      }) %>
+    </aside>
+
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

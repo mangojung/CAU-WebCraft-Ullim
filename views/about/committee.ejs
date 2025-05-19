@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+
+<section class="section">
+  <div class="layout-two-column">
+
+    <div class="main-content">
+      <section class="about-section">
+        <h2>중앙운영위원회</h2>
+        <p class="about-paragraph">
+          중앙운영위원회는 학생 자치단위의 최고 의사결정 기구이며,
+          중앙운영위원회는 총학생회장단, 동아리연합회장, 각 단과대학 학생회장으로 구성됩니다.
+          중요한 사안에 대하여 의견이 필요한 경우 중앙운영위원회의 과반 이상의 출석과 과반수의 찬성으로 의결합니다.
+          학우 여러분의 학교 생활을 위해 늘 캠퍼스의 현안을 살피겠습니다.
+        </p>
+        <div class="org-image">
+          <img src="/images/committee_logic.png" alt="중앙운영위원회 조직도" />
+        </div>
+      </section>
+    </div>
+
+    <aside class="sidebar">
+      <%- include('../partials/navigation_dynamic', {
+        sectionTitle: '소개',
+        currentPath: '/about/committee',
+        navItems: [
+          { label: '총학생회', path: '/about/student_council' },
+          { label: '중앙운영위원회', path: '/about/committee' },
+          { label: '동아리연합회', path: '/about/club' }
+        ]
+      }) %>
+    </aside>
+
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

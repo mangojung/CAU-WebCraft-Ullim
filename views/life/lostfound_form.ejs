@@ -1,0 +1,26 @@
+<%- include('../partials/header') %>
+
+<section class="notice__wrap nexon section" style="display: flex; justify-content: center;">
+    <div class="aff-form-wrap">
+        <h2>분실물 등록</h2>
+
+        <form action="/life/lostfound/new" method="POST" enctype="multipart/form-data">
+        <label for="item_name">분실물</label>
+        <input type="text" name="item_name" id="item_name" required />
+
+        <label for="found_date">습득일</label>
+        <input type="date" name="found_date" id="found_date" required />
+
+        <label for="location">습득 장소</label>
+        <input type="text" name="location" id="location" required />
+
+        <label for="images">이미지 업로드 (여러 장 가능, jpg/png)</label>
+        <input type="file" name="images" id="images" accept=".jpg,.jpeg,.png" multiple required />
+
+        <button type="submit">등록</button>
+        </form>
+    </div>
+</section>
+
+<%- include('../partials/footer') %>
+

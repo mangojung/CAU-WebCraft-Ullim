@@ -1,0 +1,62 @@
+<%- include('../partials/header') %>
+
+<section class="notice__wrap nexon section">
+  <div class="container" style="display: flex; justify-content: space-between; gap: 40px; align-items: flex-start;">
+
+    <!-- 본문 -->
+    <div class="main-content" style="flex: 1;">
+      <h2><%= post.title %></h2>
+      <p style="color: #888; font-size: 14px; margin-bottom: 20px;">
+        제휴 기간: <%= post.start_date.toISOString().split('T')[0] %> ~ <%= post.end_date.toISOString().split('T')[0] %>
+      </p>
+
+      <!-- 슬라이더 -->
+      <div class="partner-slider">
+        <div id="sliderTrack" class="partner-slider-track">
+          <% images.forEach((img) => { %>
+            <img src="<%= img %>" style="aspect-ratio: 4/5; object-fit: cover;">
+          <% }) %>
+        </div>
+        <button class="partner-slider-button left" onclick="slide(-1)">‹</button>
+        <button class="partner-slider-button right" onclick="slide(1)">›</button>
+      </div>
+
+      <!-- 본문 텍스트 -->
+      <div style="margin: 40px auto 0; white-space: pre-wrap; font-size: 16px; line-height: 1.8; max-width: 700px;">
+        <%= post.content %>
+      </div>
+    </div>
+
+    <!-- 사이드바 -->
+    <div class="sidebar">
+      <%- include('../partials/navigation_dynamic', {
+        sectionTitle: '학교생활',
+        currentPath: '/life/affiliation',
+        navItems: [
+          { label: '제휴 안내', path: '/life/affiliation' },
+          { label: '캠퍼스맵', path: '/life/map' },
+          { label: '분실물 게시판', path: '/life/lostfound' }
+        ]
+      }) %>
+    </div>
+
+    <% if (user && user.username === 'ullimdavinci67') { %>
+    <form action="/life/affiliation/<%= post.id %>/delete" method="POST" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+        <button type="submit" class="btn" style="margin-top: 20px;">삭제</button>
+    </form>
+    <% } %>
+
+  </div>
+</section>
+
+<script>
+  let index = 0;
+  function slide(n) {
+    const track = document.getElementById('sliderTrack');
+    const count = track.children.length;
+    index = (index + n + count) % count;
+    track.style.transform = `translateX(-${index * 600}px)`;
+  }
+</script>
+
+<%- include('../partials/footer') %>

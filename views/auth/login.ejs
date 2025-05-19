@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>로그인</title>
+  <!-- 공통 CSS (home.ejs와 동일) -->
+  <!-- 만약 FE_style.css만 쓰신다면 아래 경로만 두시면 됩니다 -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- 공통 헤더 -->
+  <%- include('../partials/header.ejs') %>
+
+  <!-- 본문: 로그인 섹션 -->
+  <section class="login__wrap nexon section">
+    <div class="container" style="max-width: 500px;">
+      <h2 style="margin-bottom: 30px; text-align: center;">로그인</h2>
+      
+      <!-- 로그인 폼 (POST -> /login) -->
+      <form action="/login" method="POST" style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- 아이디 -->
+        <div>
+          <label for="username" style="display:block; margin-bottom:5px;">아이디</label>
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            required 
+            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" />
+        </div>
+
+        <!-- 비밀번호 -->
+        <div>
+          <label for="password" style="display:block; margin-bottom:5px;">비밀번호</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            required 
+            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" />
+        </div>
+        
+        <!-- 로그인 버튼 -->
+        <button type="submit"
+          style="
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0A8E9C;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+          ">
+          로그인
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- 팝업 메시지 출력 -->
+  <% if (typeof popupMessage !== 'undefined') { %>
+    <script>
+      alert("<%= popupMessage %>");
+    </script>
+    <% } %>
+    
+  <!-- 공통 푸터 -->
+  <%- include('../partials/footer.ejs') %>
+
+  <!-- 필요한 JS -->
+  <script src="/js/FE_script.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<%- include('../partials/header') %>
+<div class="wrapper">
+  <section class="notice__wrap nexon section">
+    <div class="container" style="display: flex; justify-content: space-between; gap: 40px; align-items: flex-start;">
+
+      <!-- 본문 -->
+      <div class="main-content" style="flex: 1;">
+        <h2>회계감사내역</h2>
+        <p class="notice__desc">학생회비 사용 내역 및 감사자료를 열람하실 수 있습니다.</p>
+
+        <div class="notice__table">
+          <table>
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>파일</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>다운로드</th>
+                <% if (user && user.username === 'ullimdavinci67') { %>
+                <th>관리</th>
+                <% } %>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (reports.length > 0) { %>
+                <% reports.forEach((report, index) => { %>
+                  <tr>
+                    <td><%= reports.length - index %></td>
+                    <td><%= report.title %></td>
+                    <td><span><%= report.original_name %></span></td>
+                    <td><%= report.author %></td>
+                    <td><%= new Date(report.created_at).toISOString().split('T')[0] %></td>
+                    <td><a href="/uploads/finance/<%= report.file_path %>" download="<%= report.original_name %>" class="icon-download" title="파일 다운로드">
+                      ⬇</a></div></td>
+                    <% if (user && user.username === 'ullimdavinci67') { %>
+                    <td>
+                      <form action="/notice/finance/delete/<%= report.id %>" method="POST" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                        <button type="submit" class="btn-delete">삭제</button>
+                      </form>
+                    </td>
+                    <% } %>
+                  </tr>
+                <% }) %>
+              <% } else { %>
+                <tr><td colspan="6">등록된 자료가 없습니다.</td></tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+        <% if (user && user.username === 'ullimdavinci67') { %>
+          <div class="notice__upload">
+            <a href="/notice/finance/upload" class="btn" style="color: black;">📌 새 회계자료 업로드</a>
+          </div>
+        <% } %>
+      </div>
+
+      <!-- 사이드바 -->
+      <div class="sidebar">
+        <%- include('../partials/navigation_dynamic', {
+          sectionTitle: '공지사항',
+          currentPath: '/notice/finance',
+          navItems: [
+            { label: '공지사항', path: '/notice' },
+            { label: '회계감사내역', path: '/notice/finance' }
+          ]
+        }) %>
+      </div>
+
+    </div>
+  </section>
+</div>
+<%- include('../partials/footer') %>

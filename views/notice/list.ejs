@@ -1,0 +1,60 @@
+<%- include('../partials/header') %>
+<div class="wrapper">
+    <section id="noticePage" class="notice__wrap nexon section">
+        <div class="container" style="display: flex; justify-content: space-between; gap: 40px; align-items: flex-start;">
+
+            <!-- 본문 콘텐츠 -->
+            <div class="main-content" style="flex: 1;">
+            <h2>공지사항</h2>
+            <p class="notice__desc">울림 총학생회의 공식 공지사항입니다.</p>
+
+            <div class="notice__table">
+                <table>
+                <thead>
+                    <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (notices && notices.length > 0) { %>
+                    <% notices.forEach((notice, index) => { %>
+                        <tr>
+                        <td><%= notices.length - index %></td>
+                        <td><a href="/notice/<%= notice.id %>"><%= notice.title %></a></td>
+                        <td><%= new Date(notice.created_at).toISOString().split('T')[0] %></td>
+                        <td><%= notice.views %></td>
+                        </tr>
+                    <% }) %>
+                    <% } else { %>
+                    <tr><td colspan="4">등록된 공지사항이 없습니다.</td></tr>
+                    <% } %>
+                </tbody>
+                </table>
+            </div>
+
+            <% if (user && user.username === 'ullimdavinci67') { %>
+                <div class="notice__upload">
+                <a href="/notice/new" class="btn" style="color: black;">📌 새 공지 작성</a>
+                </div>
+            <% } %>
+            </div>
+
+            <!-- 사이드바 -->
+            <div class="sidebar">
+            <%- include('../partials/navigation_dynamic', {
+                sectionTitle: '공지사항',
+                currentPath: '/notice',
+                navItems: [
+                { label: '공지사항', path: '/notice' },
+                { label: '회계감사내역', path: '/notice/finance' }
+                ]
+            }) %>
+            </div>
+
+        </div>
+    </section>
+</div>
+<%- include('../partials/footer') %>

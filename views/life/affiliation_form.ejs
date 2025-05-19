@@ -1,0 +1,28 @@
+<%- include('../partials/header') %>
+
+<section class="notice__wrap nexon section" style="display: flex; justify-content: center;">
+    <div class="aff-form-wrap">
+        <h2>제휴 정보 등록</h2>
+
+        <form action="/life/affiliation/new" method="POST" enctype="multipart/form-data">
+        <label for="title">업체명</label>
+        <input type="text" name="title" id="title" required />
+
+        <label for="start_date">제휴 시작일</label>
+        <input type="date" name="start_date" id="start_date" required />
+
+        <label for="end_date">제휴 종료일</label>
+        <input type="date" name="end_date" id="end_date" required />
+
+        <label for="content">본문 내용</label>
+        <textarea name="content" id="content" rows="8" placeholder="제휴 설명을 입력하세요." required></textarea>
+
+        <label for="images">이미지 업로드 (여러 장 가능, jpg/png)</label>
+        <input type="file" name="images" id="images" accept=".jpg,.jpeg,.png" multiple required />
+
+        <button type="submit">등록</button>
+        </form>
+    </div>
+</section>
+
+<%- include('../partials/footer') %>

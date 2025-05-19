@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+
+<section class="section">
+  <div class="layout-two-column">
+
+    <div class="main-content">
+      <section class="about-section">
+        <h2>총학생회</h2>
+        <p class="about-paragraph">
+          안녕하세요, 모두를 잇는 울림, 공명을 이루다. 중앙대학교 다빈치캠퍼스 제67대 총학생회 울림입니다.
+          총학생회는 중앙대학교 다빈치캠퍼스 학우 전체를 대표하는 학생자치기구 중 가장 큰 단위로서 학우들의 권익을 보호하고 대변하는 학생 자치기구입니다.
+          울림 총학생회는 학우 여러분들의 목소리를 듣고 있습니다. 금잔디 동산에서 울리는 초록빛 가득한 소리,
+          여름의 뜨거운 열기 속에서 외치는 응원 소리, 그리고 우리의 전통을 담은 정겨운 소리와 같이 학우 여러분들이 만들어가는 소리 하나하나를 귀담아듣고 있습니다.
+          소리들이 모여 우리 캠퍼스를 더욱 다빈치캠퍼스를 더욱 아름답고 따뜻한 공간으로 만들갑니다.
+          2025학년도, 이러한 학우분들의 소리가 모여 더 큰 하나의 울림이 될 수 있도록, 학우 여러분들의 목소리가 더욱 힘을 얻을 수 있도록 최선을 다하겠습니다.
+          울림 총학생회는 늘 여러분 곁에서, 여러분과 함께 호흡하며, 모든 목소리에 공감하는 학생 자치기구로서 책임을 다하겠습니다.
+        </p>
+        <div class="org-image">
+          <img src="/images/org_student.png" alt="총학생회 조직도" />
+        </div>
+      </section>
+    </div>
+
+    <aside class="sidebar">
+      <%- include('../partials/navigation_dynamic', {
+        sectionTitle: '소개',
+        currentPath: '/about/student_council',
+        navItems: [
+          { label: '총학생회', path: '/about/student_council' },
+          { label: '중앙운영위원회', path: '/about/committee' },
+          { label: '동아리연합회', path: '/about/club' }
+        ]
+      }) %>
+    </aside>
+
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

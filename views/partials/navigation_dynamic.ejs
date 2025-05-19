@@ -1,0 +1,12 @@
+<aside class="side-nav">
+    <h4><%= sectionTitle %></h4>
+    <ul>
+        <% navItems.forEach(item => { %>
+        <li>
+            <a href="<%= item.path %>" class="<%= currentPath === item.path ? 'nav-current' : '' %>">
+            <%= item.label %>
+            </a>
+        </li>
+        <% }) %>
+    </ul>
+</aside>
