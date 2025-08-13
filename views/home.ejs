@@ -1,71 +1,60 @@
-<!DOCTYPE html>
-<html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <title>CAUhome</title>
-        <!-- 기존 CSS 경로를 수정: /css/FE_style.css 로 접근 -->
-        <link rel="stylesheet" href="/css/style.css" />
-    </head>
+<section id="sliderType" class="slider__wrap nexon">
+    <h2 class="blind">슬라이드 유형</h2>
 
-<body>
-    <!-- 공통 헤더 -->
-    <%- include('partials/header.ejs') %>    
+    <div class="slider__desc">
+        <span>2025</span>
+        <h3>우리의 울림</h3>
+        <p>중앙대학교 다빈치캠퍼스 제67대 총학생회 울림입니다.<br />
+        여러분의 학교생활에 울림을 주는 총학이 되겠습니다.</p>
+    </div>
 
-    <section id="sliderType" class="slider__wrap nexon">
-        <h2 class="blind">슬라이드 유형</h2>
-        
-        <div class="slider__desc">
-            <span>2025</span>
-            <h3>우리의 울림</h3>
-            <p>중앙대학교 다빈치캠퍼스 제67대 총학생회 울림입니다.<br />
-            여러분의 학교생활에 울림을 주는 총학이 되겠습니다.</p>
+    <div class="slider__inner">
+        <div class="slider">
+        <div class="slider__img">
+            <img src="/images/slidesBG_01.jpg" alt="슬라이드1" loading="lazy" width="1920" height="800">
+            <img src="/images/slidesBG_02.jpg" alt="슬라이드2" loading="lazy" width="1920" height="800">
+            <img src="/images/slidesBG_03.jpg" alt="슬라이드3" loading="lazy" width="1920" height="800">
+            <img src="/images/slidesBG_04.jpg" alt="슬라이드4" loading="lazy" width="1920" height="800">
         </div>
-        <div class="slider__inner">
-            <div class="slider">
-                <div class="slider__img">
-                    <img src="../images/slidesBG_01.jpg" alt="슬라이드1">
-                    <img src="../images/slidesBG_02.jpg" alt="슬라이드2">
-                    <img src="../images/slidesBG_03.jpg" alt="슬라이드3">
-                    <img src="../images/slidesBG_04.jpg" alt="슬라이드4">
-                </div>
-                <div class="slider__arrow">
-                    <a href="#" class="left"><span class="ir">이전 이미지</span></a>
-                    <a href="#" class="right"><span class="ir">다음 이미지</span></a>
-                </div>
-                <div class="slider__dot">
-                    <a href="#" class="dot active" data-index="0"><span class="ir">1</span></a>
-                    <a href="#" class="dot" data-index="1"><span class="ir">2</span></a>
-                    <a href="#" class="dot" data-index="2"><span class="ir">3</span></a>
-                    <a href="#" class="dot" data-index="3"><span class="ir">4</span></a>
-                </div>
-            </div>
+        <div class="slider__arrow">
+            <a href="#" class="left"><span class="ir">이전 이미지</span></a>
+            <a href="#" class="right"><span class="ir">다음 이미지</span></a>
         </div>
-    </section>
-
-    <section id="imageType" class="image__wrap nexon section">
-        <h2>중앙대학교 다빈치캠퍼스</h2>
-        <p>중앙대학교 다빈치캠퍼스를 소개합니다!</p>
-        <div class="image__inner container">
-            <div class="image__box">
-                <img src="/images/davinci_schoolmap.png" alt="다빈치캠퍼스 지도" class="schoolmap-image">
-            </div>
-            <div class="btn__wrap">
-                <a class="image__btn" href="/life/map">자세히 보기</a>
-            </div>
+        <div class="slider__dot">
+            <a href="#" class="dot active" data-index="0"><span class="ir">1</span></a>
+            <a href="#" class="dot" data-index="1"><span class="ir">2</span></a>
+            <a href="#" class="dot" data-index="2"><span class="ir">3</span></a>
+            <a href="#" class="dot" data-index="3"><span class="ir">4</span></a>
         </div>
-    </section>
+        </div>
+    </div>
+</section>
 
-    <section id="cardType" class="card__wrap nexon section">
+<section id="imageType" class="image__wrap nexon section">
+    <h2>중앙대학교 다빈치캠퍼스</h2>
+    <p>중앙대학교 다빈치캠퍼스를 소개합니다!</p>
+    <div class="image__inner container">
+        <div class="image__box">
+        <img src="/images/davinci_schoolmap.png" alt="다빈치캠퍼스 지도"
+            class="schoolmap-image" loading="lazy" width="1200" height="600">
+        </div>
+        <div class="btn__wrap">
+        <a class="image__btn" href="/life/map">자세히 보기</a>
+        </div>
+    </div>
+</section>
+
+<section id="cardType" class="card__wrap nexon section">
     <h2>분실물 안내</h2>
-    <p>
-        울림 총학생회가 습득한 분실물입니다. 확인 후 총학생회에 문의해주세요.
-    </p>
+    <p>울림 총학생회가 습득한 분실물입니다. 확인 후 총학생회에 문의해주세요.</p>
+
     <div class="card__inner container">
         <% if (recentLostItems && recentLostItems.length > 0) { %>
         <% recentLostItems.forEach(item => { %>
-            <article class="card" style="width: 30%; cursor: pointer;" onclick="location.href='/life/lostfound/<%= item.id %>'">
+            <article class="card" style="width: 30%; cursor: pointer;"
+                    onclick="location.href='/life/lostfound/<%= item.id %>'">
             <figure class="card__header">
-                <img src="<%= item.thumb %>" alt="분실물 이미지">
+                <img src="<%= item.thumb %>" alt="분실물 이미지" loading="lazy" width="600" height="400">
             </figure>
             <div class="card__body">
                 <h3>습득물: <%= item.title %></h3>
@@ -80,51 +69,40 @@
     </div>
 </section>
 
+<section id="noticeType" class="notice__wrap nexon section">
+    <h2>공지사항</h2>
+    <p>울림 총학생회의 공지사항 입니다.</p>
 
-    <section id="noticeType" class="notice__wrap nexon section">
-        <h2>공지사항</h2>
-        <p>울림 총학생회의 공지사항 입니다.</p>
-        
-        <div class="notice__btn">
-            <a href="/notice" class="btn">자세히 보기</a> <!-- 공지사항 전체 목록 페이지로 이동 -->
-        </div>
-    
-        <div class="notice__table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>게시물ID</th>
-                        <th>제목</th>
-                        <th>등록자</th>
-                        <th>등록일자</th>
-                        <th>조회수</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <% if (recentNotices && recentNotices.length > 0) { %>
-                    <% recentNotices.forEach((notice) => { %>
-                    <tr>
-                        <td><%= notice.id %></td>
-                        <td><a href="/notice/<%= notice.id %>"><%= notice.title %></a></td>
-                        <td>관리자</td>
-                        <td><%= notice.created_at %></td> <!-- .toISOString 필요 없음 -->
-                        <td><%= notice.views || 0 %></td> <!-- 조회수 -->
-                    </tr>
-                    <% }) %>
-                <% } else { %>
-                    <tr><td colspan="5">공지사항이 없습니다.</td></tr>
-                <% } %>
-                </tbody>
-            </table>
-        </div>
-    </section>
-    
-    
+    <div class="notice__btn">
+        <a href="/notice" class="btn">자세히 보기</a>
+    </div>
 
-    <!-- 공통 푸터 -->
-    <%- include('partials/footer.ejs') %>
-
-    <!-- JS 스크립트 (슬라이드 기능 등) -->
-    <script src="/js/FE_script.js"></script>
-</body>
-</html>
+    <div class="notice__table">
+        <table>
+        <thead>
+            <tr>
+            <th>게시물ID</th>
+            <th>제목</th>
+            <th>등록자</th>
+            <th>등록일자</th>
+            <th>조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (recentNotices && recentNotices.length > 0) { %>
+            <% recentNotices.forEach((notice) => { %>
+                <tr>
+                <td><%= notice.id %></td>
+                <td><a href="/notice/<%= notice.id %>"><%= notice.title %></a></td>
+                <td>관리자</td>
+                <td><%= notice.created_at %></td>
+                <td><%= notice.views || 0 %></td>
+                </tr>
+            <% }) %>
+            <% } else { %>
+            <tr><td colspan="5">공지사항이 없습니다.</td></tr>
+            <% } %>
+        </tbody>
+        </table>
+    </div>
+</section>

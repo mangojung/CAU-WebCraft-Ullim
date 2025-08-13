@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title><%= (typeof pageTitle !== 'undefined' ? pageTitle : '중앙대학교 다빈치캠퍼스 제67대 울림 총학생회') %></title>
+  <meta name="description" content="<%= (typeof metaDesc !== 'undefined' ? metaDesc : '중앙대학교 다빈치캠퍼스 제67대 울림 총학생회 공식 웹사이트') %>">
+  <link rel="canonical" href="<%= (typeof canonical !== 'undefined' ? canonical : 'https://caustudentunion.com') %>">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="울림 총학생회">
+  <meta property="og:title" content="<%= (typeof ogTitle !== 'undefined' ? ogTitle : (typeof pageTitle !== 'undefined' ? pageTitle : '중앙대학교 다빈치캠퍼스 제67대 울림 총학생회')) %>">
+  <meta property="og:description" content="<%= (typeof ogDesc !== 'undefined' ? ogDesc : (typeof metaDesc !== 'undefined' ? metaDesc : '중앙대학교 다빈치캠퍼스 제67대 울림 총학생회 공식 웹사이트')) %>">
+  <meta property="og:url" content="<%= (typeof canonical !== 'undefined' ? canonical : 'https://caustudentunion.com') %>">
+  <meta property="og:image" content="https://caustudentunion.com/images/og_default.jpg">
+
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('partials/header') %>
+  <main><%- body %></main>
+  <%- include('partials/footer') %>
+
+  <!-- JSON-LD (Organization + WebSite + SearchAction) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "중앙대학교 다빈치캠퍼스 제67대 울림 총학생회",
+    "url": "https://caustudentunion.com",
+    "logo": "https://caustudentunion.com/images/CAU_symbol.png",
+    "sameAs": [
+      "https://www.instagram.com/cau.67th.ullim/"
+    ]
+  }
+  </script>
+</body>
+</html>
+

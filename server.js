@@ -1,17 +1,30 @@
-// server.js - 관리자 단일 로그인 버전
+// server.js - 관리자 단일 로그인 버전 (정리본)
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const db = require('./db');
 const multer = require('multer');
+const expressLayouts = require('express-ejs-layouts');
 
 const app = express();
 
+/* ──────────────────────────────────
+   기본 상수/헬퍼
+────────────────────────────────── */
+const SITE_URL = 'https://caustudentunion.com';
+const canonical = (p = '/') => `${SITE_URL}${p.startsWith('/') ? p : `/${p}`}`;
 
-// 기본 설정
+/* ──────────────────────────────────
+   앱 기본 설정
+────────────────────────────────── */
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+app.use(expressLayouts);
+app.set('layout', 'layout'); // views/layout.ejs 사용
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
@@ -20,25 +33,51 @@ app.use(session({
   saveUninitialized: false
 }));
 
+/* ──────────────────────────────────
+   전역 메타 기본값 주입 (모든 뷰에서 사용 가능)
+   - 라우트에서 값 넘기면 그 값이 우선 적용됨
+────────────────────────────────── */
+app.use((req, res, next) => {
+  res.locals.pageTitle = res.locals.pageTitle || '중앙대학교 다빈치캠퍼스 제67대 울림 총학생회';
+  res.locals.metaDesc  = res.locals.metaDesc  || '중앙대학교 다빈치캠퍼스 제67대 울림 총학생회 공식 웹사이트';
 
+  // OG 기본값
+  res.locals.ogTitle = res.locals.ogTitle || res.locals.pageTitle;
+  res.locals.ogDesc  = res.locals.ogDesc  || res.locals.metaDesc;
 
-// 관리자 체크 미들웨어
+  // 현재 경로 기준 canonical (라우트에서 지정하면 덮어씀)
+  const pathOnly = req.originalUrl || '/';
+  res.locals.canonical = res.locals.canonical || `${SITE_URL}${pathOnly.startsWith('/') ? pathOnly : `/${pathOnly}`}`;
+
+  // 로그인 사용자 공통 주입(헤더 등에서 사용)
+  res.locals.user = req.session.user || null;
+
+  next();
+});
+
+/* ──────────────────────────────────
+   유틸 미들웨어
+────────────────────────────────── */
 function isAdmin(req, res, next) {
   if (!req.session.user) return res.status(401).send('로그인 필요');
   next();
 }
 
+/* ──────────────────────────────────
+   라우트
+────────────────────────────────── */
+
 // 메인 페이지
 app.get('/', (req, res) => {
   const noticeSql = 'SELECT id, title, created_at, views FROM notice_posts ORDER BY created_at DESC LIMIT 5';
   const lostSql = `
-  SELECT li.id, li.title, li.found_date, li.location, MIN(img.image_path) AS image_path
-  FROM lost_items li
-  LEFT JOIN lost_item_images img ON li.id = img.post_id
-  GROUP BY li.id
-  ORDER BY li.created_at DESC
-  LIMIT 3
-`;
+    SELECT li.id, li.title, li.found_date, li.location, MIN(img.image_path) AS image_path
+    FROM lost_items li
+    LEFT JOIN lost_item_images img ON li.id = img.post_id
+    GROUP BY li.id
+    ORDER BY li.created_at DESC
+    LIMIT 3
+  `;
 
   db.query(noticeSql, (noticeErr, noticeRows) => {
     if (noticeErr) {
@@ -66,7 +105,9 @@ app.get('/', (req, res) => {
       }));
 
       res.render('home', {
-        user: req.session.user || null,
+        pageTitle: '중앙대학교 다빈치캠퍼스 총학생회 - 홈',
+        metaDesc: '공지사항, 제휴 안내, 캠퍼스맵, 분실물 안내를 제공합니다.',
+        canonical: canonical('/'),
         recentNotices: formattedNotices,
         recentLostItems: lostItems
       });
@@ -74,20 +115,33 @@ app.get('/', (req, res) => {
   });
 });
 
-// 소개 페이지 라우트
+// 소개 페이지
 app.get('/about/student_council', (req, res) => {
-  res.render('about/student_council', { user: req.session.user || null,currentPath: req.path });
+  res.render('about/student_council', {
+    pageTitle: '총학생회 소개 - 중앙대학교 다빈치캠퍼스',
+    metaDesc: '중앙대학교 다빈치캠퍼스 제67대 울림 총학생회 소개',
+    canonical: canonical('/about/student_council'),
+    currentPath: req.path
+  });
 });
 
 app.get('/about/committee', (req, res) => {
-  res.render('about/committee', { user: req.session.user || null,currentPath: req.path });
+  res.render('about/committee', {
+    pageTitle: '중앙운영위원회 - 중앙대학교 다빈치캠퍼스',
+    metaDesc: '중앙운영위원회 구성 및 역할 안내',
+    canonical: canonical('/about/committee'),
+    currentPath: req.path
+  });
 });
 
 app.get('/about/club', (req, res) => {
-  res.render('about/club', { user: req.session.user || null,currentPath: req.path });
+  res.render('about/club', {
+    pageTitle: '동아리연합회 - 중앙대학교 다빈치캠퍼스',
+    metaDesc: '동아리연합회 소개 및 안내',
+    canonical: canonical('/about/club'),
+    currentPath: req.path
+  });
 });
-
-
 
 // 공지사항 목록
 app.get('/notice', (req, res) => {
@@ -97,28 +151,32 @@ app.get('/notice', (req, res) => {
       console.error('공지사항 목록 쿼리 오류:', err);
       return res.status(500).send('DB 오류');
     }
-
     res.render('notice/list', {
-      user: req.session.user || null,
+      pageTitle: '공지사항 - 중앙대학교 다빈치캠퍼스 총학생회',
+      metaDesc: '울림 총학생회의 최신 공지사항을 확인하세요.',
+      canonical: canonical('/notice'),
       notices: rows
     });
   });
 });
-// 공지사항 작성 페이지
+
+// 공지사항 작성 페이지 (관리자)
 app.get('/notice/new', (req, res) => {
   if (!req.session.user || req.session.user.username !== 'ullimdavinci67') return res.redirect('/login');
-  res.render('notice/new', { user: req.session.user });
+  res.render('notice/new', {
+    pageTitle: '공지사항 작성',
+    metaDesc: '관리자 전용 공지사항 작성 페이지',
+    canonical: canonical('/notice/new')
+  });
 });
 
-// 공지사항 작성 처리 (추가)
+// 공지사항 작성 처리
 app.post('/notice', (req, res) => {
   if (!req.session.user || req.session.user.username !== 'ullimdavinci67') {
     return res.status(403).send('관리자만 작성할 수 있습니다.');
   }
-
   const { title, content } = req.body;
   const sql = 'INSERT INTO notice_posts (title, content, created_at, views) VALUES (?, ?, NOW(), 0)';
-
   db.query(sql, [title, content], (err) => {
     if (err) {
       console.error('공지사항 작성 DB 오류:', err);
@@ -128,12 +186,41 @@ app.post('/notice', (req, res) => {
   });
 });
 
-// 공지사항 삭제
+// 공지사항 수정 페이지 (관리자)
+app.get('/notice/:id/edit', (req, res) => {
+  if (!req.session.user || req.session.user.username !== 'ullimdavinci67') {
+    return res.status(403).send('관리자만 접근 가능합니다.');
+  }
+  const id = req.params.id;
+  db.query('SELECT * FROM notice_posts WHERE id = ?', [id], (err, rows) => {
+    if (err || rows.length === 0) return res.status(500).send('DB 오류 또는 게시물 없음');
+    res.render('notice/edit', {
+      pageTitle: '공지사항 수정',
+      metaDesc: '관리자 전용 공지사항 수정 페이지',
+      canonical: canonical(`/notice/${id}/edit`),
+      notice: rows[0]
+    });
+  });
+});
+
+// 공지사항 수정 처리 (관리자)
+app.post('/notice/:id/edit', (req, res) => {
+  if (!req.session.user || req.session.user.username !== 'ullimdavinci67') {
+    return res.status(403).send('관리자만 수정할 수 있습니다.');
+  }
+  const id = req.params.id;
+  const { title, content } = req.body;
+  db.query('UPDATE notice_posts SET title=?, content=? WHERE id=?', [title, content, id], (err) => {
+    if (err) return res.status(500).send('DB 오류');
+    res.redirect('/notice/' + id);
+  });
+});
+
+// 공지사항 삭제 (관리자)
 app.post('/notice/:id/delete', (req, res) => {
   if (!req.session.user || req.session.user.username !== 'ullimdavinci67') {
     return res.status(403).send('관리자만 삭제할 수 있습니다.');
   }
-
   const noticeId = req.params.id;
   db.query('DELETE FROM notice_posts WHERE id = ?', [noticeId], (err) => {
     if (err) {
@@ -144,89 +231,54 @@ app.post('/notice/:id/delete', (req, res) => {
   });
 });
 
-
-// 수정 페이지
-app.get('/notice/:id/edit', (req, res) => {
-  if (!req.session.user || req.session.user.username !== 'ullimdavinci67') {
-    return res.status(403).send('관리자만 접근 가능합니다.');
-  }
-
-  const id = req.params.id;
-  db.query('SELECT * FROM notice_posts WHERE id = ?', [id], (err, rows) => {
-    if (err || rows.length === 0) return res.status(500).send('DB 오류 또는 게시물 없음');
-    res.render('notice/edit', { notice: rows[0], user: req.session.user });
-  });
-});
-
-// 수정 처리
-app.post('/notice/:id/edit', (req, res) => {
-  if (!req.session.user || req.session.user.username !== 'ullimdavinci67') {
-    return res.status(403).send('관리자만 수정할 수 있습니다.');
-  }
-
-  const id = req.params.id;
-  const { title, content } = req.body;
-  db.query('UPDATE notice_posts SET title=?, content=? WHERE id=?', [title, content, id], (err) => {
-    if (err) return res.status(500).send('DB 오류');
-    res.redirect('/notice/' + id);
-  });
-});
-
-
-
-// 회계감사내역 라우트
+// 회계감사내역 라우트 (목록/다운로드 등)
 const financeRoutes = require('./routes/finance');
 app.use('/notice', financeRoutes);
 
-// 공지사항 상세 보기 + 댓글
+// 공지사항 상세
 app.get('/notice/:id', (req, res) => {
   const noticeId = req.params.id;
-  if (isNaN(noticeId)) return res.status(400).send("잘못된 요청: ID는 숫자여야 합니다.");
+  if (isNaN(noticeId)) return res.status(400).send('잘못된 요청: ID는 숫자여야 합니다.');
 
   db.query('UPDATE notice_posts SET views = views + 1 WHERE id = ?', [noticeId]);
   db.query('SELECT * FROM notice_posts WHERE id = ?', [noticeId], (err, rows) => {
     if (err) {
-      console.error('공지사항 상세보기 댓글 쿼리 오류:', err);
+      console.error('공지사항 상세보기 쿼리 오류:', err);
       return res.status(500).send('DB 오류');
     }
     if (rows.length < 1) return res.status(404).send('공지사항 없음');
 
     const notice = rows[0];
     res.render('notice/detail', {
-      user: req.session.user || null,
+      pageTitle: `${notice.title} - 공지사항`,
+      metaDesc: (notice.content || '').toString().replace(/<[^>]+>/g, '').slice(0, 120),
+      canonical: canonical(`/notice/${noticeId}`),
       notice
     });
   });
 });
 
-
-
-// 회계 업로드 페이지
-app.get('/notice/finance/upload', (req, res) => {
-  if (!req.session.user || req.session.user.username !== 'ullimdavinci67') return res.redirect('/login');
-  res.render('notice/finance_upload', { user: req.session.user });
-});
-
-
-
-//학교생활 페이지 관련
+// 학교생활 페이지 (제휴/맵/분실물 등)
 const lifeRouter = require('./routes/life');
 app.use('/life', lifeRouter);
 
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
-//학교생활 페이지 관련 끝---
+// 회계 업로드 페이지 (관리자)
+app.get('/notice/finance/upload', (req, res) => {
+  if (!req.session.user || req.session.user.username !== 'ullimdavinci67') return res.redirect('/login');
+  res.render('notice/finance_upload', {
+    pageTitle: '회계감사내역 업로드',
+    metaDesc: '관리자 전용 회계감사내역 업로드 페이지',
+    canonical: canonical('/notice/finance/upload')
+  });
+});
 
-
-
-
-
-
-
-
-
-// 관리자 로그인 페이지
+// 관리자 로그인
 app.get('/login', (req, res) => {
-  res.render('auth/login', { user: req.session.user });
+  res.render('auth/login', {
+    pageTitle: '관리자 로그인',
+    metaDesc: '울림 총학생회 관리자 로그인',
+    canonical: canonical('/login')
+  });
 });
 
 app.post('/login', (req, res) => {
@@ -237,17 +289,14 @@ app.post('/login', (req, res) => {
     if (err) return res.status(500).send('DB 오류');
     if (rows.length < 1) {
       return res.render('auth/login', {
+        pageTitle: '관리자 로그인',
+        metaDesc: '울림 총학생회 관리자 로그인',
+        canonical: canonical('/login'),
         popupMessage: '로그인 실패: 아이디 또는 비밀번호가 잘못되었습니다.',
-        user: null
       });
     }
-
     const user = rows[0];
-    req.session.user = {
-      id: user.id,
-      username: user.username
-    };
-
+    req.session.user = { id: user.id, username: user.username };
     res.redirect('/');
   });
 });
@@ -257,11 +306,9 @@ app.get('/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/'));
 });
 
-
-
-
-
-// 서버 시작
+/* ──────────────────────────────────
+   서버 시작
+────────────────────────────────── */
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server started on http://localhost:${PORT}`);
