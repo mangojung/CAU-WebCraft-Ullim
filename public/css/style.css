@@ -631,11 +631,11 @@ color: white;
     color: white; /* 하얀 글자 */
     font-size: 12px;
     text-align: center;
-    padding: 3px 6px;
+    padding: 3px 3px;
     transition: background 0.3s ease;
 }
 .dropdown__menu li a:hover {
-    background: #093A5E;
+    background: #072c47;
     border-radius: 5px;
 }
 
