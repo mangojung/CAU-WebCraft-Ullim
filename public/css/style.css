@@ -1145,3 +1145,50 @@ max-width: 140%;
 }
 
 
+/* ========== Header responsive fix ========== */
+.header__inner{
+  position: sticky; top:0; z-index: 50; /* 겹침 방지 */
+}
+
+/* 메뉴 리스트가 좁아지면 줄바꿈 + 세로 간격 확보 */
+.header__menu{
+  display:flex;
+  flex-wrap: wrap;
+  column-gap: clamp(10px, 1.8vw, 20px);
+  row-gap: 8px;                 /* 줄바꿈 시 세로 간격 */
+  justify-content: center;      /* 폭 좁아질수록 가운데 정렬 */
+}
+
+/* 메뉴 링크: 글자/패딩 점진 축소 */
+.header__menu li a{
+  font-size: clamp(12px, 1.6vw, 18px);
+  padding: 8px clamp(8px, 1.2vw, 14px);
+  line-height: 1.2;
+}
+
+/* 로고/타이틀(있다면)도 함께 축소 */
+.header__logo, .header__title{
+  font-size: clamp(16px, 2vw, 22px);
+}
+
+/* 넓이별 추가 보정 */
+@media (max-width: 1200px){
+  .header__menu{ column-gap: 16px; }
+}
+@media (max-width: 992px){
+  .header__menu li a{ padding: 6px 10px; }
+}
+@media (max-width: 840px){
+  /* 아주 좁을 땐 한 줄 유지 + 좌우 스크롤 허용(겹침 방지용) */
+  .header__nav, .header__menu{
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;          /* 이 구간에서는 줄바꿈 대신 스크롤 */
+    scrollbar-width: none;      /* Firefox */
+  }
+  .header__nav::-webkit-scrollbar,
+  .header__menu::-webkit-scrollbar{ display:none; } /* WebKit */
+}
+@media (max-width: 640px){
+  .header__menu li a{ font-size: 12px; padding: 6px 8px; }
+}
