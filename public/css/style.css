@@ -1313,3 +1313,21 @@ max-width: 140%;
 .page-head { margin-top: 40px; margin-bottom: 16px; }
 .page-title { margin: 0 0 8px; }
 .page-lead { margin: 0; color: #667085; }  /* 설명글 색 살짝 톤다운(선택) */
+
+
+/* 공지/회계/생활 등 본문 페이지: 제목/설명을 표와 같은 시작선으로 맞추기 */
+.notice__wrap .main-content { min-width: 0; }
+
+/* 표 컨테이너와 동일한 가로폭을 제목/설명에도 적용 */
+:root { --content-w: 860px; }  /* 표 폭에 맞게 조정(개발자도구로 표 부모 width 확인) */
+
+.notice__wrap .page-head,
+.notice__wrap .notice__table {
+  max-width: var(--content-w);
+  margin: 0 auto;            /* 같은 중앙 기준(= 같은 왼쪽 시작선) */
+}
+
+/* 제목/설명은 왼쪽 정렬 */
+.notice__wrap .page-head { text-align: left; padding: 0 16px; }
+.notice__wrap .page-head h2 { margin: 0 0 8px; }
+.notice__wrap .notice__desc { margin: 0; color: #667085; }
