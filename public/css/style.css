@@ -1360,5 +1360,6 @@ body.page-map .page-head .notice__desc {
 
 
 .page-head {
-  margin-bottom: 20px;
+  padding-bottom: 20px; /* 헤더 내부에 여백 */
+  margin-bottom: 10px;  /* 헤더와 다음 요소 사이의 간격 */
 }
