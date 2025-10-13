@@ -1,20 +1,19 @@
+require('dotenv').config();
 const mysql = require('mysql');
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '!!qazwsx135',  // MySQL 비밀번호
-    database: 'ullim_db',
-    port: 3306,
-    charset: 'utf8mb4'
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT || 3306,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  charset: 'utf8mb4',
+  connectionLimit: 10,
+  connectTimeout: 10000,
 });
 
-db.connect((err) => {
-    if (err) {
-        console.error('❌ MySQL 연결 오류:', err);
-        return;
-    }
-    console.log('✅ MySQL 데이터베이스 연결 성공');
-});
+pool.on('acquire', (c) => console.log(`📌 MySQL connection ${c.threadId} acquired`));
+pool.on('release', (c) => console.log(`📌 MySQL connection ${c.threadId} released`));
 
-module.exports = db;
+module.exports = pool;
+
