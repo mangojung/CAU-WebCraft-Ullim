@@ -630,7 +630,7 @@ color: white;
 }
 .dropdown__menu li a {
     color: white; /* 하얀 글자 */
-    font-size: 14px;
+    font-size: 12px;
     text-align: left;
     padding: 5px 8px;
     transition: background 0.3s ease;
@@ -642,7 +642,7 @@ color: white;
 
 
 @media (max-width: 600px){
-  .dropdown__menu li a { font-size: 13px; }
+  .dropdown__menu li a { font-size: 11px; }
 }
 
 
