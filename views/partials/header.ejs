@@ -41,21 +41,15 @@
     
         <!-- 로그인 영역 -->
         <div class="header__member">
-            <% if (!user) { %>
-                <!-- 비로그인 상태 -->
-                <a href="/login" class="btn-login">로그인</a>
-            <% } else { %>
-                <!-- 로그인 상태 -->
-                <div class="user-info">
-                    <img src="/images/human_symbol.png" alt="유저 아이콘" class="user-icon">
-                    <span class="user-name">관리자 님</span>
-                </div>
-            
-                <!-- 로그아웃 버튼 가로 정렬 -->
-                <div class="user-actions">
-                    <a href="/logout" class="btn-logout">로그아웃</a>
-                </div>
-            <% } %>
+        <% if (user) { %>
+            <div class="user-info">
+            <img src="/images/human_symbol.png" alt="유저 아이콘" class="user-icon">
+            <span class="user-name">관리자 님</span>
+            </div>
+            <div class="user-actions">
+            <a href="/logout" class="btn-logout">로그아웃</a>
+            </div>
+        <% } %>
         </div>
     </div>
 </header>

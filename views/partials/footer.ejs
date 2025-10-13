@@ -11,11 +11,23 @@
             <p>공식 이메일: <a href="mailto:caustudentunion2025@gmail.com">caustudentunion2025@gmail.com</a></p>
         </div>
 
-        <!-- 하단 링크 -->
+        <!-- 링크 + 우측 관리자 버튼을 같은 줄에 배치 -->
+        <div class="footer__row">
         <div class="footer__links">
-            <a href="#">개인정보처리방침</a> | 
-            <a href="#">이용약관</a> | 
+            <a href="#">개인정보처리방침</a> |
+            <a href="#">이용약관</a> |
             <a href="#">이메일무단수집거부</a>
+        </div>
+
+        <div class="footer__admin">
+            <% if (!user) { %>
+            <!-- 관리자만 알아보도록 ‘울림’ -->
+            <a href="/login" class="footer-login" aria-label="관리자 전용">울림</a>
+            <% } else { %>
+            <!-- 로그인 상태라면 관리자 메뉴로 들어가게 할 수도 있음 -->
+            <a href="/admin" class="footer-login" aria-label="관리자 메뉴">울림</a>
+            <% } %>
+        </div>
         </div>
     </div>
 </footer>
