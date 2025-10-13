@@ -594,7 +594,6 @@ color: white;
 
 /* 울림 링크 – 버튼처럼 안 보이게 */
 .footer__link-ullim {
-  opacity: 0.6;
   font-weight: 500;
 }
 
@@ -602,7 +601,21 @@ color: white;
   opacity: 1;
   color: white;
 }
+.footer__links span {
+  color: #ffffff;         /* 링크와 동일한 색상 유지 */
+  cursor: default;        /* 클릭 안 되게 */
+  text-decoration: none;  /* 밑줄 제거 */
+}
 
+.footer__links a.footer__link-ullim {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer__links a.footer__link-ullim:hover {
+  text-decoration: underline;
+}
 
 /* ========== 드롭다운 ========== */
 
@@ -624,14 +637,14 @@ color: white;
     display: block;
 }
 .dropdown__menu li {
-    padding: 5px 4px;
+    padding: 5px 8px;
     display: block;
 }
 .dropdown__menu li a {
     color: white; /* 하얀 글자 */
     font-size: 12px;
     text-align: center;
-    padding: 3px 3px;
+    padding: 3px 6px;
     transition: background 0.3s ease;
 }
 .dropdown__menu li a:hover {
