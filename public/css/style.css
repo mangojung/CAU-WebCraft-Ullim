@@ -568,52 +568,31 @@ color: white;
     text-decoration: underline;
 }
 .footer__links {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 14px;
-}
-.footer__links a {
-    color: white;
-    text-decoration: none;
-    margin: 0 5px;
-}
-.footer__links a:hover {
-    text-decoration: underline;
-}
-/* 푸터 링크 줄 + 관리자 버튼 한 줄 배치 */
-.footer__row{
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* 좌: 링크, 우: 울림 버튼 */
-  gap: 16px;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255,255,255,0.9);
   margin-top: 20px;
 }
 
-/* ‘울림’ 버튼 – 눈에 띄지 않게 */
-.footer-login{
-  display: inline-block;
-  padding: 6px 14px;
-  font-size: 13px;
-  color: rgba(255,255,255,0.85);
-  border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 9999px;
-  background: transparent;
+.footer__links a {
+  color: rgba(255,255,255,0.9);
   text-decoration: none;
-  opacity: .65;                 /* 일반 재학생은 못 알아보게 살짝 희미하게 */
-  transition: opacity .2s ease, border-color .2s ease;
-}
-.footer-login:hover{
-  opacity: 1;
-  border-color: rgba(255,255,255,0.6);
+  transition: color 0.2s ease;
 }
 
-/* 반응형: 화면이 좁으면 세로 쌓기 */
-@media (max-width: 640px){
-  .footer__row{
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
+.footer__links a:hover {
+  color: white;
+}
+
+/* 울림 링크 – 버튼처럼 안 보이게 */
+.footer__link-ullim {
+  opacity: 0.6;
+  font-weight: 500;
+}
+
+.footer__link-ullim:hover {
+  opacity: 1;
+  color: white;
 }
 
 
