@@ -610,7 +610,6 @@ color: white;
 .footer__links a.footer__link-ullim {
   color: #ffffff;
   text-decoration: none;
-  font-weight: 600;
 }
 
 .footer__links a.footer__link-ullim:hover {
@@ -1226,3 +1225,37 @@ max-width: 140%;
   margin-left: 300px !important;
 }
 
+/* 사이드 네비 기본 리셋 */
+.side-nav ul{ margin:0; padding:0; list-style:none; }
+.side-nav li{ margin:0; padding:0; }
+
+/* 항목 전체가 클릭/호버 되도록 block + 패딩은 a에만 */
+.side-nav li a{
+  display:block;               /* ✅ 전체 폭 클릭 */
+  padding:12px 16px;
+  text-decoration:none;
+  color:#0b2c3d;
+  line-height:1.35;
+  border-radius:4px;           /* 모서리 살짝 */
+}
+
+/* 호버/포커스 시 항목 전체가 파랗게 */
+.side-nav li a:hover,
+.side-nav li a:focus{
+  background:rgba(27,151,175,0.12);  /* 메뉴 상단 색과 톤 맞춘 연파랑 */
+  outline:none;
+}
+
+/* 활성(현재) 항목도 동일하게 전체 강조 */
+.side-nav li a.nav-current{
+  background:rgba(27,151,175,0.18);
+  font-weight:700;
+  color:#0b4e66;
+}
+
+/* 구분선은 li에만: 폭 일정 */
+.side-nav li + li{
+  border-top:1px solid rgba(0,0,0,0.08);
+  margin-top:6px;              /* 항목 간 여백 */
+  padding-top:6px;
+}
