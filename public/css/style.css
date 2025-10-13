@@ -631,8 +631,8 @@ color: white;
 .dropdown__menu li a {
     color: white; /* 하얀 글자 */
     font-size: 12px;
-    text-align: left;
-    padding: 5px 8px;
+    text-align: center;
+    padding: 3px 6px;
     transition: background 0.3s ease;
 }
 .dropdown__menu li a:hover {
@@ -1208,4 +1208,9 @@ max-width: 140%;
   text-shadow: 0 2px 8px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.55);
 }
 
+/* ✅ 분실물 안내 섹션 위치를 공지사항과 동일하게 정렬 */
+.card__wrap h2,
+.card__wrap p {
+  margin-left: 300px !important;
+}
 
