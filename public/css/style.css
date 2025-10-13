@@ -1297,3 +1297,19 @@ max-width: 140%;
   font-weight:700;
   padding:12px 16px;               /* ⬅ 기본과 **동일**: 높이 변화 방지 */
 }
+
+
+/* 공통 페이지 헤더(제목/설명)를 본문 표(left column) 시작선에 맞추기 */
+.page-head,
+.page-title,
+.page-lead {
+  /* 본문 테이블과 동일한 폭으로 강제 */
+  max-width: 860px;        /* ← 본문 표(리스트) 폭과 동일하게 맞춰 주세요 */
+  margin: 0 auto;          /* 중앙 컨테이너 기준으로 좌우 정렬 동일 */
+  text-align: left;        /* 가운데 정렬 → 왼쪽 정렬 */
+}
+
+/* 여백 정리 */
+.page-head { margin-top: 40px; margin-bottom: 16px; }
+.page-title { margin: 0 0 8px; }
+.page-lead { margin: 0; color: #667085; }  /* 설명글 색 살짝 톤다운(선택) */
