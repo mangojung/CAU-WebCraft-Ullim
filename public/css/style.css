@@ -624,7 +624,7 @@ color: white;
     display: block;
 }
 .dropdown__menu li {
-    padding: 5px 8px;
+    padding: 5px 4px;
     display: block;
 }
 .dropdown__menu li a {
