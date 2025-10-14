@@ -1196,21 +1196,7 @@ max-width: 140%;
   text-shadow: 0 2px 6px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.5);
 }
 
-.slider__desc h3{
-  font-size: clamp(28px, 5vw, 64px);
-  font-weight: 700;
 
-  /* ✅ 겹침 없는 얇은 외곽선만 */
-  -webkit-text-stroke: 1px rgba(0,0,0,.35);   /* WebKit */
-  text-shadow:
-    -1px 0 rgba(0,0,0,.35),
-     0 1px rgba(0,0,0,.35),
-     1px 0 rgba(0,0,0,.35),
-     0 -1px rgba(0,0,0,.35);
-
-  /* 🔻 기존의 큰 blur 그림자는 제거 */
-  /* text-shadow: 0 3px 10px ... (삭제) */
-}
 
 .slider__desc p{
   /* "중앙대학교 … 되겠습니다." */
