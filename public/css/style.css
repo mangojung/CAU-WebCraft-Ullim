@@ -219,6 +219,7 @@ address {
 .slider__desc h3{
   font-size: clamp(28px, 5vw, 64px);
   font-weight: 700;
+  color: #e7e7e7;
   -webkit-text-stroke: 0;   /* 제거 */
   text-shadow: none;        /* 제거 */
 }
